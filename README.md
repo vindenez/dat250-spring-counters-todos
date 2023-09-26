@@ -22,7 +22,7 @@ See **[REST API examples](https://github.com/selabhvl/dat250-spring-counters-tod
   {
     "id": 2,
     "summary": "Walk the dog",
-    "description": "Walk the dog for 30 minutes."
+    "description": "Walk the dog for 30 minutes"
   },
   {
     "id": 3,
@@ -81,7 +81,7 @@ Response:
   {
     "id": 2,
     "summary": "Walk the dog",
-    "description": "Walk the dog for 30 minutes."
+    "description": "Walk the dog for 30 minutes"
   },
   {
     "id": 3,
