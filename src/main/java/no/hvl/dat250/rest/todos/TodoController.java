@@ -27,6 +27,7 @@ public class TodoController {
             .findFirst()
             .orElseThrow(() -> new TodoNotFoundException(String.format(TODO_WITH_THE_ID_X_NOT_FOUND, id)));
   }
+  
 
   @PostMapping
   public Todo createTodo(@RequestBody Todo todo) {
