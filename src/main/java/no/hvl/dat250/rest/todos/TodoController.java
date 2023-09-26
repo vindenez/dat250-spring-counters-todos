@@ -1,6 +1,7 @@
 package no.hvl.dat250.rest.todos;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ public class TodoController {
             .findFirst()
             .orElseThrow(() -> new TodoNotFoundException(String.format(TODO_WITH_THE_ID_X_NOT_FOUND, id)));
   }
-  
 
   @PostMapping
   public Todo createTodo(@RequestBody Todo todo) {
@@ -63,15 +63,33 @@ public class TodoController {
     return "Todo deleted successfully!";
   }
 
-  @ExceptionHandler(TodoNotFoundException.class)
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public String handleTodoNotFound(TodoNotFoundException e) {
-    return e.getMessage();
-  }
+
 
   private static class TodoNotFoundException extends RuntimeException {
     public TodoNotFoundException(String message) {
       super(message);
+    }
+  }
+
+  @ExceptionHandler(TodoNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleTodoNotFound(TodoNotFoundException e) {
+    ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+  }
+
+  private static class ErrorResponse {
+    private String message;
+
+    public ErrorResponse(String message) {
+      this.message = message;
+    }
+
+    public String getMessage() {
+      return message;
+    }
+
+    public void setMessage(String message) {
+      this.message = message;
     }
   }
 }
